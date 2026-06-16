@@ -181,10 +181,29 @@ u16 check_mic_adc(void)
 void fc_rgbw_driver(u8 r, u8 g, u8 b, u8 w)
 {
     u32 duty1, duty2, duty3, duty4;
+
+    // u16 val;
+    // val = (u16)r + g + b + w;
+    // if (val > 255)
+    // {
+    //     duty1 = r * 10000 / 255 / 2; // 占空比转为0 ~ (10000 / 2)
+    //     duty2 = b * 10000 / 255 / 2; // 占空比转为0 ~ (10000 / 2)
+    //     duty3 = g * 10000 / 255 / 2; // 占空比转为0 ~ (10000 / 2)
+    //     duty4 = w * 10000 / 255 / 2; // 占空比转为0 ~ (10000 / 2)
+    // }
+    // else
+    // {
+    //     duty1 = r * 10000 / 255; // 占空比转为0 ~ 10000
+    //     duty2 = b * 10000 / 255; // 占空比转为0 ~ 10000
+    //     duty3 = g * 10000 / 255; // 占空比转为0 ~ 10000
+    //     duty4 = w * 10000 / 255; // 占空比转为0 ~ 10000
+    // }
+
     duty1 = r * 10000 / 255; // 占空比转为0 ~ 10000
     duty2 = b * 10000 / 255; // 占空比转为0 ~ 10000
     duty3 = g * 10000 / 255; // 占空比转为0 ~ 10000
     duty4 = w * 10000 / 255; // 占空比转为0 ~ 10000
+
     // 设置一个通道的占空比
     mcpwm_set_duty(pwm_ch0, duty1); // R
     mcpwm_set_duty(pwm_ch1, duty2); // G
@@ -192,15 +211,15 @@ void fc_rgbw_driver(u8 r, u8 g, u8 b, u8 w)
     mcpwm_set_duty(pwm_ch3, duty4); // W
 }
 
-void fc_rgb_driver(u8 r, u8 g, u8 b)
-{
-    u32 duty1, duty2, duty3, duty4;
-    duty1 = r * 10000 / 255; // 占空比转为0~10000
-    duty2 = b * 10000 / 255; // 占空比转为0~10000
-    duty3 = g * 10000 / 255; // 占空比转为0~010000
+// void fc_rgb_driver(u8 r, u8 g, u8 b)
+// {
+//     u32 duty1, duty2, duty3, duty4;
+//     duty1 = r * 10000 / 255; // 占空比转为0~10000
+//     duty2 = b * 10000 / 255; // 占空比转为0~10000
+//     duty3 = g * 10000 / 255; // 占空比转为0~010000
 
-    // 设置一个通道的占空比
-    mcpwm_set_duty(pwm_ch0, duty1); // R
-    mcpwm_set_duty(pwm_ch1, duty2); // G
-    mcpwm_set_duty(pwm_ch2, duty3); // B
-}
+//     // 设置一个通道的占空比
+//     mcpwm_set_duty(pwm_ch0, duty1); // R
+//     mcpwm_set_duty(pwm_ch1, duty2); // G
+//     mcpwm_set_duty(pwm_ch2, duty3); // B
+// }
